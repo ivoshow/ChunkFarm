@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.ivoshow.chunkfarm.WarehouseTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-09-20T19:51:09.993Z" hostname="manjaro" time="0.037">
+  <properties/>
+  <testcase name="isFullOnlyWhenEveryTypeSlotIsSaturated()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.026"/>
+  <testcase name="refusesNewTypesOnceTheTypeLimitIsReached()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.0"/>
+  <testcase name="removalNeverGoesNegativeAndDropsEmptyTypes()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.0"/>
+  <testcase name="clipsAtThePerTypeCapAndReportsWhatFit()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.001"/>
+  <testcase name="snapshotKeepsInsertionOrderSoTheGuiDoesNotShuffle()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.005"/>
+  <testcase name="holdsFarMoreThanAnInventoryCould()" classname="dev.ivoshow.chunkfarm.WarehouseTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

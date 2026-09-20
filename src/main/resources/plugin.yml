@@ -1,0 +1,28 @@
+name: ChunkFarm
+version: '${version}'
+main: dev.ivoshow.chunkfarm.ChunkFarmPlugin
+api-version: '${apiVersion}'
+description: Colheita e replantio automaticos por chunk, com armazem de alta capacidade.
+author: ivoshow
+folia-supported: false
+
+softdepend:
+  - GriefPrevention
+
+permissions:
+  chunkfarm.use:
+    description: Permite usar /chunkfarm e abrir fazendas proprias.
+    default: true
+  chunkfarm.place:
+    description: Permite colocar um Controlador de Fazenda.
+    default: true
+  chunkfarm.limit.bypass:
+    description: Ignora o limite de fazendas por jogador.
+    default: op
+  chunkfarm.admin:
+    description: "Acesso total a qualquer fazenda, mais dar/remover/recarregar/stats."
+    default: op
+    children:
+      chunkfarm.use: true
+      chunkfarm.place: true
+      chunkfarm.limit.bypass: true

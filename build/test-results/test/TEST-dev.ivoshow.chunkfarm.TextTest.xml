@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.ivoshow.chunkfarm.TextTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-09-20T19:51:09.905Z" hostname="manjaro" time="0.087">
+  <properties/>
+  <testcase name="groupsLargeAmountsTheBrazilianWay()" classname="dev.ivoshow.chunkfarm.TextTest" time="0.073"/>
+  <testcase name="compactFormShortensTheNumbersThatDoNotFitInLore()" classname="dev.ivoshow.chunkfarm.TextTest" time="0.013"/>
+  <testcase name="prettifiesEnumNames()" classname="dev.ivoshow.chunkfarm.TextTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

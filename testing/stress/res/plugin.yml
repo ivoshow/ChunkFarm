@@ -1,0 +1,6 @@
+name: ChunkFarmStress
+version: '1.0.0'
+main: dev.ivoshow.stress.StressPlugin
+api-version: '26.2'
+depend:
+  - ChunkFarm

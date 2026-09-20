@@ -1,0 +1,283 @@
+# Todas as mensagens usam MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# Placeholders sao escritos entre %porcento%.
+
+prefix: "<gradient:#8fdc63:#3fa34d>ChunkFarm</gradient> <dark_gray>|</dark_gray> "
+
+role:
+  access: "<gray>acesso</gray>"
+  withdraw: "<green>retirada</green>"
+  manager: "<gold>gerente</gold>"
+
+delivery:
+  warehouse: "<green>armazem</green>"
+  ground: "<yellow>chao</yellow>"
+
+state:
+  active: "<green>ativa</green>"
+  paused: "<yellow>pausada</yellow>"
+  dormant: "<red>dormente</red>"
+
+crops:
+  wheat: "Trigo"
+  carrots: "Cenoura"
+  potatoes: "Batata"
+  beetroots: "Beterraba"
+  nether_wart: "Fungo do Nether"
+  cocoa: "Cacau"
+  sweet_berries: "Frutas Silvestres"
+  glow_berries: "Frutas Brilhantes"
+  sugar_cane: "Cana-de-acucar"
+  cactus: "Cacto"
+  bamboo: "Bambu"
+  kelp: "Alga"
+  melon: "Melancia"
+  pumpkin: "Abobora"
+
+controller:
+  lore:
+    - "<gray>Coloque em qualquer lugar do chunk.</gray>"
+    - "<gray>O chunk inteiro passa a ser colhido</gray>"
+    - "<gray>e replantado automaticamente.</gray>"
+    - ""
+    - "<yellow>Clique direito</yellow> <dark_gray>-</dark_gray> <gray>abrir o armazem</gray>"
+
+farm:
+  not-owner: "<red>Esta fazenda pertence a <white>%owner%</white>. Peca confianca no terreno para poder usa-la.</red>"
+  need-role: "<red>Voce precisa de confianca de <white>%role%</white> nesta fazenda.</red>"
+  members:
+    owner-only: "<red>So o dono da fazenda mexe na lista de membros.</red>"
+    removed: "<yellow><white>%player%</white> nao usa mais esta fazenda.</yellow>"
+    role-changed: "<green><white>%player%</white> agora e <white>%role%</white>.</green>"
+  bounds-trimmed: "<yellow>O limite de camadas do servidor e %max_layers%; o intervalo foi ajustado.</yellow>"
+  place:
+    created: "<green>Fazenda criada. Este chunk agora e colhido automaticamente.</green>"
+    reclaimed: "<green>Fazenda recuperada com <white>%total%</white> itens no armazem.</green>"
+    bounds: "<gray>Colhendo entre Y <white>%min%</white> e Y <white>%max%</white>. Ajuste no menu de configuracoes.</gray>"
+    world-blocked: "<red>Nao e possivel criar fazendas neste mundo.</red>"
+    no-permission: "<red>Voce nao tem permissao para colocar um controlador.</red>"
+    limit: "<red>Voce ja atingiu o limite de <white>%limit%</white> fazendas.</red>"
+    chunk-taken: "<red>Este chunk ja tem uma fazenda.</red>"
+    protected: "<red>Este terreno e protegido e voce nao tem permissao para construir aqui.</red>"
+  break:
+    removed: "<yellow>Fazenda removida. O armazem estava vazio.</yellow>"
+    dormant: "<yellow>Controlador retirado. Os <white>%total%</white> itens continuam guardados por <white>%days%</white> dia(s) — recoloque o controlador neste chunk para recupera-los.</yellow>"
+
+gui:
+  warehouse:
+    title: "<dark_gray>Armazem <gray>(chunk %chunk%)</gray></dark_gray>"
+    previous: "<yellow>« Pagina anterior</yellow>"
+    next: "<yellow>Proxima pagina »</yellow>"
+    entry:
+      amount: "<gray>Guardado: <white>%amount%</white> <dark_gray>(%short%)</dark_gray></gray>"
+      per-click: "<dark_gray>O <white>%amount%</white> no icone e o que sai por clique, nao o total.</dark_gray>"
+      actions:
+        - ""
+        - "<yellow>Clique esquerdo</yellow> <dark_gray>-</dark_gray> <gray>retirar 1 stack</gray>"
+        - "<yellow>Clique direito</yellow> <dark_gray>-</dark_gray> <gray>retirar 1 unidade</gray>"
+        - "<yellow>Shift + clique</yellow> <dark_gray>-</dark_gray> <gray>encher o inventario</gray>"
+    info:
+      name: "<green><bold>Armazem</bold></green>"
+      lore:
+        - "<gray>Total guardado: <white>%total%</white></gray>"
+        - "<gray>Tipos: <white>%types%</white><dark_gray>/</dark_gray><white>%max_types%</white></gray>"
+        - "<gray>Ja colhido nesta fazenda: <white>%harvested%</white></gray>"
+        - ""
+        - "<dark_gray>Pagina %page% de %pages%</dark_gray>"
+    settings:
+      name: "<aqua><bold>Configuracoes</bold></aqua>"
+      lore:
+        - "<gray>Escolha quais plantacoes colher</gray>"
+        - "<gray>e ate onde a fazenda alcanca.</gray>"
+    take-all:
+      name: "<gold><bold>Retirar tudo</bold></gold>"
+      lore:
+        - "<gray>Puxa um stack de cada tipo</gray>"
+        - "<gray>ate o inventario encher.</gray>"
+
+  settings:
+    title: "<dark_gray>Configuracoes <gray>(chunk %chunk%)</gray></dark_gray>"
+    back: "<yellow>« Voltar ao armazem</yellow>"
+    members:
+      name: "<light_purple><bold>Membros</bold></light_purple>"
+      lore:
+        - "<gray>Quem mais pode usar esta fazenda.</gray>"
+        - "<gray>Agora: <white>%count%</white></gray>"
+        - ""
+        - "<gray>Adicionar e por comando:</gray>"
+        - "<yellow>/cf confiar [jogador] [nivel]</yellow>"
+    crop:
+      name: "<white>%crop%</white>"
+      enabled:
+        - "<green>✔ Sendo colhida</green>"
+        - ""
+        - "<gray>Clique para desligar.</gray>"
+      disabled:
+        - "<red>✖ Ignorada</red>"
+        - ""
+        - "<gray>Clique para ligar.</gray>"
+    replant:
+      name: "<white><bold>Replantio automatico</bold></white>"
+      enabled:
+        - "<green>✔ Ligado</green>"
+        - ""
+        - "<gray>Uma semente sai da propria colheita</gray>"
+        - "<gray>e volta para a terra.</gray>"
+      disabled:
+        - "<red>✖ Desligado</red>"
+        - ""
+        - "<gray>A plantacao e colhida e o solo</gray>"
+        - "<gray>fica vazio.</gray>"
+    active:
+      name: "<white><bold>Fazenda</bold></white>"
+      enabled:
+        - "<green>✔ Funcionando</green>"
+        - ""
+        - "<gray>Clique para pausar.</gray>"
+      disabled:
+        - "<red>✖ Pausada</red>"
+        - ""
+        - "<gray>Clique para retomar.</gray>"
+    delivery:
+      name: "<white><bold>Destino da colheita</bold></white>"
+      warehouse:
+        - "<green>ARMAZEM</green>"
+        - ""
+        - "<gray>Os itens viram contador. Nao cria</gray>"
+        - "<gray>entidade nenhuma no mundo.</gray>"
+        - "<gray>Clique para trocar.</gray>"
+      ground:
+        - "<yellow>CHAO</yellow>"
+        - ""
+        - "<gray>Os itens caem onde a planta estava,</gray>"
+        - "<gray>para funil ou agua recolher.</gray>"
+        - "<red>Custa caro: cada item vira uma</red>"
+        - "<red>entidade que o servidor precisa tickar.</red>"
+        - "<gray>Clique para trocar.</gray>"
+
+    overflow:
+      name: "<white><bold>Quando o armazem encher</bold></white>"
+      pause:
+        - "<yellow>PAUSAR</yellow>"
+        - ""
+        - "<gray>Para de colher. Nada se perde.</gray>"
+        - "<gray>Clique para trocar.</gray>"
+      drop:
+        - "<yellow>JOGAR NO CHAO</yellow>"
+        - ""
+        - "<gray>Continua colhendo e derruba</gray>"
+        - "<gray>o excedente perto do controlador.</gray>"
+        - "<gray>Clique para trocar.</gray>"
+      void:
+        - "<red>DESTRUIR</red>"
+        - ""
+        - "<gray>Continua colhendo e apaga</gray>"
+        - "<gray>o excedente. Use com cuidado.</gray>"
+        - "<gray>Clique para trocar.</gray>"
+    min-y:
+      name: "<red><bold>Camada minima: Y %y%</bold></red>"
+    max-y:
+      name: "<green><bold>Camada maxima: Y %y%</bold></green>"
+    bounds:
+      lore:
+        - "<gray>Alcance atual: <white>%layers%</white> camada(s)</gray>"
+        - "<gray>Maximo do servidor: <white>%max_layers%</white></gray>"
+        - ""
+        - "<yellow>Clique esquerdo</yellow> <dark_gray>-</dark_gray> <gray>+1</gray>"
+        - "<yellow>Clique direito</yellow> <dark_gray>-</dark_gray> <gray>-1</gray>"
+        - "<yellow>Shift</yellow> <dark_gray>-</dark_gray> <gray>de 16 em 16</gray>"
+        - ""
+        - "<gray>Para faixas grandes use</gray>"
+        - "<yellow>/cf camadas [min] [max]</yellow>"
+
+  members:
+    title: "<dark_gray>Membros <gray>(chunk %chunk%)</gray></dark_gray>"
+    back: "<yellow>« Voltar as configuracoes</yellow>"
+    entry:
+      name: "<white>%player%</white>"
+      role: "<gray>Nivel: %role%</gray>"
+      actions:
+        - ""
+        - "<yellow>Clique</yellow> <dark_gray>-</dark_gray> <gray>trocar o nivel</gray>"
+        - "<yellow>Shift + clique</yellow> <dark_gray>-</dark_gray> <gray>remover</gray>"
+    info:
+      name: "<green><bold>Lista de membros</bold></green>"
+      lore:
+        - "<gray>Dono: <white>%owner%</white></gray>"
+        - "<gray>Membros: <white>%count%</white><dark_gray>/</dark_gray><white>%max%</white></gray>"
+        - ""
+        - "<gray>acesso</gray> <dark_gray>-</dark_gray> <gray>so olha o armazem</gray>"
+        - "<gray>retirada</gray> <dark_gray>-</dark_gray> <gray>tambem tira itens</gray>"
+        - "<gray>gerente</gray> <dark_gray>-</dark_gray> <gray>tambem muda as configuracoes</gray>"
+        - "<gray>                  e pode quebrar o controlador</gray>"
+
+command:
+  help:
+    - "<gradient:#8fdc63:#3fa34d><bold>ChunkFarm</bold></gradient>"
+    - "<yellow>/cf abrir</yellow> <dark_gray>-</dark_gray> <gray>abre o armazem do chunk atual</gray>"
+    - "<yellow>/cf info</yellow> <dark_gray>-</dark_gray> <gray>detalhes da fazenda do chunk atual</gray>"
+    - "<yellow>/cf lista</yellow> <dark_gray>-</dark_gray> <gray>suas fazendas</gray>"
+    - "<yellow>/cf colher</yellow> <dark_gray>-</dark_gray> <gray>forca uma colheita imediata</gray>"
+    - "<yellow>/cf camadas [min] [max]</yellow> <dark_gray>-</dark_gray> <gray>define o alcance de Y de uma vez</gray>"
+    - "<yellow>/cf confiar [jogador] [nivel]</yellow> <dark_gray>-</dark_gray> <gray>libera a fazenda para alguem</gray>"
+    - "<yellow>/cf desconfiar [jogador]</yellow> <dark_gray>-</dark_gray> <gray>tira o acesso</gray>"
+    - "<yellow>/cf membros</yellow> <dark_gray>-</dark_gray> <gray>quem pode usar esta fazenda</gray>"
+    - "<yellow>/cf recolher</yellow> <dark_gray>-</dark_gray> <gray>desfaz a fazenda e devolve o controlador</gray>"
+    - "<dark_gray>Admin:</dark_gray> <yellow>/cf entregar [jogador] [qtd]</yellow><gray>,</gray> <yellow>/cf remover</yellow><gray>,</gray> <yellow>/cf recarregar</yellow><gray>,</gray> <yellow>/cf stats</yellow>"
+  unknown: "<red>Subcomando desconhecido: <white>%arg%</white>. Use <yellow>/cf ajuda</yellow>.</red>"
+  players-only: "<red>Este comando so funciona no jogo.</red>"
+  no-permission: "<red>Voce nao tem permissao para isso.</red>"
+  no-farm-here: "<red>Nao existe fazenda no chunk em que voce esta.</red>"
+  not-a-number: "<red><white>%arg%</white> nao e um numero.</red>"
+  player-offline: "<red>O jogador <white>%player%</white> nao esta online.</red>"
+  info:
+    header: "<green>Fazenda no chunk <white>%chunk%</white></green>"
+    owner: "<gray>Dono: <white>%owner%</white></gray>"
+    bounds: "<gray>Camadas: Y <white>%min%</white> ate Y <white>%max%</white> <dark_gray>(%layers%)</dark_gray></gray>"
+    crops: "<gray>Colhendo: <white>%crops%</white></gray>"
+    warehouse: "<gray>Armazem: <white>%total%</white> itens em <white>%types%</white><dark_gray>/</dark_gray><white>%max_types%</white> tipos</gray>"
+    delivery: "<gray>Destino da colheita: %delivery%</gray>"
+    scan: "<gray>Ultima varredura completa levou <white>%scan%</white>ms <dark_gray>(se passar do cache-refresh-seconds, a fazenda espera o dobro disso antes de revarrer)</dark_gray></gray>"
+    state: "<gray>Estado: %state% <dark_gray>|</dark_gray> <white>%cached%</white> plantas mapeadas <dark_gray>|</dark_gray> <white>%harvested%</white> ja colhidos</gray>"
+  list:
+    empty: "<yellow>Voce ainda nao tem fazendas.</yellow>"
+    header: "<green>Voce tem <white>%count%</white> fazenda(s):</green>"
+    entry: "<gray>- chunk <white>%chunk%</white> em <white>%x% %y% %z%</white> <dark_gray>(%total% itens)</dark_gray></gray>"
+  harvest:
+    done: "<green>Colheita forcada: <white>%amount%</white> itens guardados.</green>"
+  layers:
+    usage: "<red>Uso: <yellow>/cf camadas [min] [max]</yellow> <gray>- exemplo: <white>/cf camadas -50 256</white></gray></red>"
+    done: "<green>Alcance definido: Y <white>%min%</white> ate Y <white>%max%</white> <dark_gray>(%layers% camadas)</dark_gray></green>"
+    expensive: "<yellow>Atencao: %layers% camadas = %blocks% blocos por varredura deste chunk. A varredura e fatiada entre os ciclos, mas ajuste <white>harvest.blocks-per-cycle</white> se o TPS cair.</yellow>"
+  pickup:
+    owner-only: "<red>So <white>%owner%</white> pode recolher esta fazenda.</red>"
+    already-taken: "<yellow>O controlador desta fazenda ja foi devolvido. Recoloque-o no chunk para reativar e recuperar o armazem.</yellow>"
+    from-world: "o controlador foi retirado do mundo"
+    no-block: "o controlador ja nao estava la, mas o item foi devolvido"
+    done: "<green>Fazenda do chunk <white>%chunk%</white> recolhida <dark_gray>(%where%)</dark_gray>.</green>"
+  trust:
+    usage: "<red>Uso: <yellow>/cf confiar [jogador] [acesso|retirar|gerente]</yellow> <gray>- sem o nivel, entra como retirada</gray></red>"
+    bad-role: "<red>Nivel desconhecido: <white>%arg%</white>. Use <yellow>acesso</yellow>, <yellow>retirar</yellow> ou <yellow>gerente</yellow>.</red>"
+    unknown-player: "<red>Nao conheco <white>%player%</white>. O jogador precisa ja ter entrado no servidor.</red>"
+    is-owner: "<red>Essa pessoa ja e a dona da fazenda.</red>"
+    limit: "<red>Esta fazenda ja tem o maximo de <white>%limit%</white> membros.</red>"
+    done: "<green><white>%player%</white> agora tem <white>%role%</white> nesta fazenda.</green>"
+    notified: "<green><white>%owner%</white> te deu <white>%role%</white> na fazenda do chunk <white>%chunk%</white>.</green>"
+  untrust:
+    usage: "<red>Uso: <yellow>/cf desconfiar [jogador]</yellow></red>"
+    not-member: "<yellow><white>%player%</white> nao estava na lista desta fazenda.</yellow>"
+  members:
+    header: "<green>Fazenda de <white>%owner%</white> <dark_gray>|</dark_gray> <white>%count%</white> membro(s)</green>"
+    empty: "<gray>Ninguem mais tem acesso. Use <yellow>/cf confiar [jogador]</yellow>.</gray>"
+    entry: "<gray>- <white>%player%</white> <dark_gray>:</dark_gray> %role%</gray>"
+  give:
+    usage: "<red>Uso: <yellow>/cf entregar [jogador] [quantidade]</yellow></red>"
+    sent: "<green>Enviado <white>%amount%</white> controlador(es) para <white>%player%</white>.</green>"
+    received: "<green>Voce recebeu <white>%amount%</white> Controlador(es) de Fazenda.</green>"
+  remove:
+    done: "<yellow>Fazenda do chunk <white>%chunk%</white> removida junto com <white>%total%</white> itens.</yellow>"
+  reload:
+    done: "<green>Configuracao recarregada.</green>"
+  stats-cost: "<gray>Custo: ultimo ciclo <white>%last%</white>ms <dark_gray>|</dark_gray> media <white>%avg%</white>ms <dark_gray>|</dark_gray> pico <white>%peak%</white>ms <dark_gray>|</dark_gray> no ultimo ciclo: <white>%visited%</white> trabalhadas, <white>%skipped%</white> puladas</gray>"
+  stats-protection: "<gray>Protecao de terreno: <white>%hook%</white> <dark_gray>|</dark_gray> confianca exigida <white>%trust%</white></gray>"
+  stats-server: "<gray>Servidor: TPS <white>%tps%</white> <dark_gray>|</dark_gray> tick medio <white>%tick%</white>ms <dark_gray>|</dark_gray> alcance <white>%reach%</white></gray>"
+  stats: "<gray>Fazendas: <white>%farms%</white> <dark_gray>(%dormant% dormentes)</dark_gray> <dark_gray>|</dark_gray> guardado: <white>%stored%</white> <dark_gray>|</dark_gray> ciclos: <white>%cycles%</white> <dark_gray>|</dark_gray> blocos colhidos: <white>%blocks%</white></gray>"

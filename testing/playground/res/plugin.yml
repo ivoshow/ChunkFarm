@@ -1,0 +1,6 @@
+name: ChunkFarmPlayground
+version: '1.0.0'
+main: dev.ivoshow.playground.PlaygroundPlugin
+api-version: '26.2'
+depend:
+  - ChunkFarm

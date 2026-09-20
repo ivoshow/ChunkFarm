@@ -1,0 +1,6 @@
+name: ChunkFarmCrash
+version: '1.0.0'
+main: dev.ivoshow.crash.CrashPlugin
+api-version: '26.2'
+depend:
+  - ChunkFarm

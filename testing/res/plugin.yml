@@ -1,0 +1,6 @@
+name: ChunkFarmHarness
+version: '1.0.0'
+main: dev.ivoshow.harness.HarnessPlugin
+api-version: '26.2'
+depend:
+  - ChunkFarm

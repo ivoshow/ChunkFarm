@@ -1,0 +1,230 @@
+# ---------------------------------------------------------------------------
+#  ChunkFarm
+#  Colheita automatica por chunk, replantio com a propria semente e um
+#  armazem que conta itens em vez de guardar stacks.
+# ---------------------------------------------------------------------------
+
+controller:
+  # Bloco que o jogador coloca para transformar o chunk em fazenda.
+  # Precisa ser um bloco solido. Nao pode ser um bau: o menu proprio do
+  # plugin substitui o clique direito.
+  material: LODESTONE
+
+  # Nome do item (MiniMessage).
+  name: "<gradient:#8fdc63:#3fa34d><bold>Controlador de Fazenda</bold></gradient>"
+
+  # Quantas fazendas cada jogador pode ter. 0 ou menos = ilimitado.
+  # A permissao chunkfarm.limit.bypass ignora este limite.
+  max-per-player: 3
+
+worlds:
+  # Se a lista estiver vazia, todos os mundos sao permitidos.
+  only: []
+  # Mundos onde nao se pode colocar controlador, mesmo estando em 'only'.
+  blocked:
+    - world_the_end
+
+area:
+  # Camadas colhidas, relativas ao Y do controlador.
+  # -3/+3 cobre 7 camadas: o suficiente para uma fazenda de varios andares.
+  default-min-offset: -3
+  default-max-offset: 3
+
+  # Teto de camadas que um jogador pode configurar.
+  # 384 cobre a altura inteira do overworld (-64 ate 319), entao da para
+  # definir, por exemplo, de Y -50 ate Y 256 (307 camadas).
+  #
+  # Cada camada custa 256 leituras de bloco por varredura, MAS a varredura
+  # pula secoes de 16 blocos que sao so ar. Uma fazenda de -50 a 256 num
+  # terreno normal le so as secoes que tem alguma coisa, nao as 307 camadas.
+  # A varredura tambem e fatiada entre os ciclos, entao ela nunca acontece
+  # de uma vez num tick so.
+  #
+  # Para faixas grandes use o comando, nao o menu:
+  #   /cf camadas -50 256
+  max-layers: 384
+
+  # Culturas ligadas ao criar uma fazenda. Use ['*'] para todas.
+  # Ids validos: wheat, carrots, potatoes, beetroots, nether_wart, cocoa,
+  # sweet_berries, glow_berries, sugar_cane, cactus, bamboo, kelp,
+  # melon, pumpkin
+  default-crops:
+    - '*'
+
+protection:
+  # Integracao com plugin de protecao de terreno. Hoje: GriefPrevention.
+  #
+  # Com isso ligado, quem tem confianca no terreno onde o controlador esta
+  # tambem abre a fazenda -- e como duas pessoas dividem uma farm sem
+  # precisar dar chunkfarm.admin para ninguem.
+  #
+  # Fora de terreno protegido, ou sem o plugin instalado, so o dono que
+  # colocou o controlador e quem tem chunkfarm.admin entram.
+  use-land-trust: true
+
+  # Quantos jogadores o dono pode confiar numa fazenda. 0 = sem limite.
+  max-members-per-farm: 10
+
+  # Nivel de confianca do GriefPrevention que libera abrir o armazem:
+  #   Access    - so entrar/usar botao (fraco demais para tirar itens)
+  #   Inventory - o mesmo nivel de abrir um bau (padrao, recomendado)
+  #   Build     - pode construir
+  #   Manage    - gerencia o terreno
+  # Quebrar o controlador sempre exige Build, alem de ser o dono da fazenda.
+  required-trust: Inventory
+
+chunks:
+  # ATE ONDE O PLUGIN ALCANCA. E a maior alavanca sobre o que ele custa.
+  #
+  #   LOADED        -> trabalha em qualquer chunk que o servidor ja tenha na
+  #                    memoria, por qualquer motivo: jogador por perto, chunk
+  #                    do spawn, ticket de outro plugin. O plugin nao carrega
+  #                    nada por conta propria. Padrao.
+  #
+  #   PLAYER_RADIUS -> mais restrito: so as fazendas a ate 'player-radius'
+  #                    chunks de um jogador. Ignora chunk de spawn e chunk que
+  #                    outro plugin segura. O custo passa a acompanhar quantos
+  #                    jogadores estao de fato na lavoura.
+  #
+  #   ALWAYS        -> o plugin segura cada chunk de fazenda carregado, entao
+  #                    elas rodam com o servidor vazio. CUIDADO: isso faz o
+  #                    servidor tickar o chunk inteiro (mobs, redstone, fluidos),
+  #                    nao so a fazenda.
+  mode: LOADED
+
+  # Raio em chunks, so para PLAYER_RADIUS.
+  # 8 costuma bater com a view-distance padrao.
+  player-radius: 8
+
+  # Teto de chunks que o plugin segura em ALWAYS. As fazendas que passarem
+  # disso voltam a depender do chunk estar carregado por outro motivo.
+  max-always-loaded: 200
+
+harvest:
+  # Intervalo entre ciclos, em ticks. 20 = 1 segundo.
+  interval-ticks: 20
+
+  # Quantas fazendas entram em cada ciclo. As fazendas giram em rodizio,
+  # entao nenhuma fica sem vez quando o servidor tem mais que isso.
+  farms-per-cycle: 250
+
+  # Orcamento TOTAL de blocos por ciclo, somando varredura e colheita.
+  # E A VALVULA DE SEGURANCA DE TPS. Se o servidor engasgar, baixe aqui.
+  #
+  # Referencia: olhar um bloco custa 1, colher custa 9.
+  # Medido num teste de carga (50 fazendas, 201 camadas, tudo maduro):
+  # o custo fica em torno de 1 ms a cada 1000 unidades de orcamento.
+  # Entao 25000 ~= 25 ms no pior caso, 60000 ~= 50 ms (um tick inteiro).
+  #
+  # Acompanhe o numero real com /cf stats, que mostra o ultimo ciclo,
+  # a media e o pico em milissegundos.
+  blocks-per-cycle: 25000
+
+  # Teto por fazenda, para que uma fazenda gigante nao consuma o ciclo
+  # inteiro sozinha.
+  #
+  # 16384 = 64 camadas por ciclo. E o que faz uma fazenda de faixa larga
+  # (por exemplo -50 ate 256) terminar a varredura em 2 ciclos em vez de 7.
+  # Enquanto a varredura nao termina, a fazenda ainda nao colhe nada, entao
+  # um valor muito baixo aqui faz fazendas grandes parecerem paradas.
+  blocks-per-farm-cycle: 16384
+
+  # De quanto em quanto tempo as posicoes das plantacoes sao revarridas.
+  # Quebrar ou plantar dentro da area revarre na hora, sem esperar isso.
+  cache-refresh-seconds: 30
+
+  # Fortuna aplicada aos drops (0 = sem fortuna, maximo 10).
+  # Nao afeta trigo/cenoura/batata da mesma forma que um jogador: e a
+  # mesma tabela de loot do vanilla, so que com o encantamento aplicado.
+  fortune-level: 0
+
+replant:
+  # Quando o drop nao traz semente (trigo pode dropar zero) o plugin tenta
+  # tirar uma do armazem. Se tambem nao houver:
+  #   true  -> replanta mesmo assim, a fazenda nunca para
+  #   false -> deixa o bloco vazio ate aparecer semente
+  allow-free-seed: true
+
+warehouse:
+  # Para onde vai a colheita, por padrao. Cada fazenda pode trocar isso no
+  # proprio menu de configuracoes.
+  #
+  #   WAREHOUSE -> vira contador no armazem da fazenda. Nao cria nenhuma
+  #                entidade no mundo. E o modo que aguenta milhoes de itens.
+  #   DROP      -> os itens caem no chao, onde a planta estava, para funil
+  #                ou agua recolher, como numa farm vanilla.
+  #
+  # Atencao ao DROP: cada item vira uma entidade que o servidor tem que
+  # tickar, e some em 5 minutos se ninguem recolher. Numa farm que produz
+  # milhoes por dia isso derruba o TPS. Existe porque algumas construcoes
+  # querem os itens no mundo, nao num menu.
+  delivery: WAREHOUSE
+
+  # Mostrar o numero de stack no canto do icone no menu?
+  #
+  # false (padrao): o icone fica limpo e a quantidade real aparece no NOME
+  #   do item, tipo "Trigo x1.234.567". O cliente nunca desenha mais que um
+  #   stack no canto, entao aquele "64" leria como se fosse o total.
+  # true: volta o "64", que ali significa quanto sai por clique.
+  gui-stack-badge: false
+
+  # Quantos TIPOS diferentes de item cada armazem guarda.
+  # 45 tipos = 1 pagina do menu. 90 = 2 paginas.
+  max-types: 90
+
+  # Limite por tipo. 0 = sem limite (na pratica 1.000.000.000.000.000).
+  # E aqui que os milhoes de itens cabem: o armazem guarda um contador
+  # por tipo, nao stacks, entao 50 milhoes de trigo ocupam uma linha.
+  max-per-type: 0
+
+  # O que fazer quando o armazem enche:
+  #   PAUSE -> para de colher (nada se perde, as plantas ficam de pe)
+  #   DROP  -> continua colhendo e joga o excedente no chao
+  #   VOID  -> continua colhendo e destroi o excedente
+  when-full: PAUSE
+
+crops:
+  # Quantos blocos ficam de pe nas culturas que crescem em coluna.
+  # 1 = corta tudo acima da base (comportamento normal de uma farm).
+  column-keep-blocks:
+    sugar_cane: 1
+    cactus: 1
+    bamboo: 1
+    kelp: 1
+
+storage:
+  # Intervalo do salvamento automatico (assincrono), em segundos.
+  # Cobre o acumulo da colheita: perder alguns minutos de trigo num crash
+  # nao tem consequencia.
+  save-interval-seconds: 300
+
+  # Quanto tempo uma RETIRADA espera antes de ser forcada para o disco.
+  #
+  # Isto e protecao contra duplicacao, nao conveniencia. O inventario do
+  # jogador e salvo pelo servidor no ritmo dele; se o servidor cair entre o
+  # jogador tirar os itens e o nosso salvamento, os itens ficam no inventario
+  # E voltam para o armazem. Por isso toda saida de item pede um salvamento,
+  # com este atraso para agrupar varios cliques num unico arquivo.
+  #
+  # Tambem vale para criar/desfazer fazenda e mexer na lista de membros.
+  flush-delay-seconds: 3
+
+  # Registrar cada retirada em plugins/ChunkFarm/saques.log.
+  #
+  # O armazem e um contador, entao um bug de duplicacao nao deixa rastro de
+  # item nenhum: o numero simplesmente nao desce. Este arquivo e o rastro --
+  # quem tirou, de qual fazenda, quanto, e quanto sobrou.
+  log-withdrawals: true
+
+  # Copias de seguranca em plugins/ChunkFarm/data/backups/.
+  # O salvamento ja escreve num arquivo temporario e so entao troca, o que
+  # impede um crash de truncar o arquivo. Isso nao protege contra um valor
+  # errado gravado corretamente -- uma copia de uma hora atras protege.
+  backups: 5
+  backup-interval-minutes: 60
+
+  # Quando o controlador e quebrado com itens dentro, a fazenda fica
+  # dormente e o conteudo e preservado por estes dias. Recolocar o
+  # controlador no mesmo chunk devolve tudo.
+  # 0 = guarda para sempre.
+  orphan-retention-days: 7
