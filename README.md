@@ -404,19 +404,3 @@ criativo e 8 controladores; o primeiro a entrar também recebe op.
 
 ---
 
-## Limitações conhecidas
-
-- **As GUIs não foram verificadas com jogador conectado.** A matemática está coberta por
-  teste, mas o clique em si nunca rodou numa sessão real.
-- **`/cf confiar` só resolve quem já entrou no servidor** — usa o cache de perfis, sem
-  consulta externa bloqueante.
-- **`/cf entregar` exige o jogador online.**
-- **A integração de proteção cobre GriefPrevention.** Towny, Lands e WorldGuard ainda não
-  têm hook; neles a fazenda fica só no dono e na lista de membros, o que é seguro, só não
-  compartilha pelo terreno. A interface `ProtectionHook` existe para adicionar mais.
-- **Folia não é suportado.** O ciclo roda no `GlobalRegionScheduler`.
-- **Trocar `controller.material` no config** faz as fazendas existentes ficarem dormentes
-  na próxima varredura, porque o bloco no mundo deixa de bater com o configurado.
-- **Torchflower e Pitcher Plant** não são suportados: mudam de bloco ao amadurecer em vez
-  de só mudar de estágio.
-- **O log de saques cobre a GUI**, que é por onde todo saque de jogador passa.
